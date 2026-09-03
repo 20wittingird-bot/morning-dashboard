@@ -1,4 +1,32 @@
 {
-  "general": [],
-  "topics": {}
+  "general": [
+    {
+      "title": "台風13号 影響は長時間続く 警戒を 台風15号の動きは?",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015199841000.html"
+    },
+    {
+      "title": "北日本と東日本中心 9日も大気の状態が非常に不安定の見込み",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015200211000.html"
+    },
+    {
+      "title": "愛知県内で水難事故相次ぐ 2人死亡",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015200261000.html"
+    },
+    {
+      "title": "熊本地震 10年前の地震と隣り合う領域で発生か 専門家分析",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015200121000.html"
+    },
+    {
+      "title": "ラグビーリーグワン フィジー出身選手が死亡 熱中症疑いで搬送",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015200291000.html"
+    },
+    {
+      "title": "「韓国サッカー協会が外国人審判員に性的接待」韓国メディア",
+      "link": "http://www3.nhk.or.jp/news/html/20260808/k10015200271000.html"
+    }
+  ],
+  "topics": {
+    "生成AI": [],
+    "経済": []
+  }
 }

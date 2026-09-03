@@ -1,9 +1,9 @@
 {
-  "city": "東京",
-  "date": "2026-09-02",
-  "temp_max": 30,
-  "temp_min": 24,
-  "weather_code": 2,
-  "weather_text": "薄曇り",
-  "precipitation_probability": 20
+  "city": "東京都",
+  "date": "2026-09-04",
+  "temp_max": 25.4,
+  "temp_min": 21.6,
+  "weather_code": 61,
+  "weather_text": "弱い雨",
+  "precipitation_probability": 75
 }
