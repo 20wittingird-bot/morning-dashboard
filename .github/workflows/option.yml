@@ -1,6 +1,0 @@
-with open("config.json", encoding="utf-8") as f:
-    config = json.load(f)
-
-print("=== [DEBUG] 読み込んだ config.json の内容 ===")
-print(json.dumps(config, ensure_ascii=False, indent=2))
-print("==========================================")
