@@ -60,7 +60,7 @@ def main():
 
     # 一般ニュース（NHK）
     try:
-        result["general"] = parse_rss(GENERAL_RSS, limit=6)
+        result["general"] = parse_rss(GENERAL_RSS, limit=3)
         print(f"[DEBUG] NHKニュース取得件数: {len(result['general'])}")
     except Exception as e:  # noqa: BLE001
         print("[ERROR] general news fetch failed:", e)
@@ -77,7 +77,7 @@ def main():
         url = f"https://news.google.com/rss/search?{params}"
         
         try:
-            fetched_items = parse_rss(url, limit=4)
+            fetched_items = parse_rss(url, limit=1)
             result["topics"][kw] = fetched_items
             print(f"[DEBUG] キーワード [{kw}] 取得件数: {len(fetched_items)}")
         except Exception as e:  # noqa: BLE001
