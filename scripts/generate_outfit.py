@@ -6,11 +6,11 @@
 import json
 import os
 import re
+import time
 import urllib.error
 import urllib.request
 
 API_KEY = os.environ.get("GEMINI_API_KEY")
-# モデル名を gemini-2.5-flash または gemini-1.5-flash に指定
 MODEL = "gemini-3.6-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
@@ -28,7 +28,7 @@ def call_gemini(prompt: str) -> str:
                     "parts": [{"text": prompt}]
                 }
             ],
-            # レスポンスを強制的にJSONフォーマット指定（JSON崩れを防ぎます）
+            # レスポンスを強制的にJSONフォーマット指定
             "generationConfig": {
                 "response_mime_type": "application/json"
             }
@@ -42,12 +42,22 @@ def call_gemini(prompt: str) -> str:
         method="POST"
     )
 
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            data = json.load(r)
-    except urllib.error.HTTPError as e:
-        error_msg = e.read().decode("utf-8")
-        raise SystemExit(f"Gemini API Error (HTTP {e.code}): {error_msg}")
+    # 503/429 エラー対策（最大3回リトライ）
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                data = json.load(r)
+                break
+        except urllib.error.HTTPError as e:
+            if e.code in (503, 429) and attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 5  # 5秒, 10秒... と待機時間を伸ばす
+                print(f"Gemini APIが混雑しています (HTTP {e.code})。{wait_time}秒後に再試行します... ({attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+
+            error_msg = e.read().decode("utf-8")
+            raise SystemExit(f"Gemini API Error (HTTP {e.code}): {error_msg}")
 
     # レスポンス文字列の抽出
     try:
