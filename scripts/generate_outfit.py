@@ -1,44 +1,59 @@
-"""天気と持ち服リストをもとに、Claude APIで
+"""天気と持ち服リストをもとに、Gemini APIで
 1) 今日のおすすめコーデ
 2) 全アイテムの相性マップ
-を生成し、data/outfit.json に書き出す。ANTHROPIC_API_KEY 環境変数が必要。
+を生成し、data/outfit.json に書き出す。GEMINI_API_KEY 環境変数が必要。
 """
 import json
 import os
 import re
+import urllib.error
 import urllib.request
 
-API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-MODEL = "claude-sonnet-4-6"
-API_URL = "https://api.anthropic.com/v1/messages"
+API_KEY = os.environ.get("GEMINI_API_KEY")
+# 高コスパ・高速で無料枠の利用に適した gemini-1.5-flash を使用
+MODEL = "gemini-1.5-flash"
+API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 
-def call_claude(prompt: str) -> str:
+def call_gemini(prompt: str) -> str:
     if not API_KEY:
-        raise SystemExit("ANTHROPIC_API_KEY が設定されていません(GitHub Secretsに登録してください)")
+        raise SystemExit("GEMINI_API_KEY が設定されていません(GitHub Secretsに登録してください)")
+
+    url = f"{API_URL}?key={API_KEY}"
 
     body = json.dumps(
         {
-            "model": MODEL,
-            "max_tokens": 1500,
-            "messages": [{"role": "user", "content": prompt}],
+            "contents": [
+                {
+                    "parts": [{"text": prompt}]
+                }
+            ],
+            # レスポンスを強制的にJSONフォーマット指定（JSON崩れを防ぎます）
+            "generationConfig": {
+                "response_mime_type": "application/json"
+            }
         }
     ).encode("utf-8")
 
     req = urllib.request.Request(
-        API_URL,
+        url,
         data=body,
-        headers={
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-            "anthropic-version": "2023-06-01",
-        },
+        headers={"Content-Type": "application/json"},
+        method="POST"
     )
-    with urllib.request.urlopen(req, timeout=60) as r:
-        data = json.load(r)
 
-    parts = [b["text"] for b in data.get("content", []) if b.get("type") == "text"]
-    return "".join(parts)
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.load(r)
+    except urllib.error.HTTPError as e:
+        error_msg = e.read().decode("utf-8")
+        raise SystemExit(f"Gemini API Error (HTTP {e.code}): {error_msg}")
+
+    # レスポンス文字列の抽出
+    try:
+        return data["candidates"][0]["content"]["parts"][0]["text"]
+    except (KeyError, IndexError) as e:
+        raise RuntimeError(f"APIからのレスポンス解析に失敗しました: {data}") from e
 
 
 def extract_json(text: str) -> dict:
@@ -75,7 +90,7 @@ def main():
 【持っている服(カテゴリ別)】
 {json.dumps(items_by_category, ensure_ascii=False, indent=2)}
 
-以下のJSON形式で、JSONのみを出力してください(前置き・説明文・コードブロック記号は一切不要):
+以下のJSON形式で出力してください:
 {{
   "suggestion": {{
     "items": ["カテゴリ: アイテム名", "..."],
@@ -89,7 +104,7 @@ def main():
 compatibilityには持っている服の全アイテムについて、色・素材・スタイルの観点から
 相性の良い他のアイテムを2〜4個ずつ挙げてください。"""
 
-    raw = call_claude(prompt)
+    raw = call_gemini(prompt)
     outfit = extract_json(raw)
 
     with open("data/outfit.json", "w", encoding="utf-8") as f:
