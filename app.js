@@ -138,29 +138,20 @@ function renderNews(news) {
   const el = document.getElementById("newsBody");
   const general = news?.general || [];
   const topics = news?.topics || {};
-  const hasAny = general.length > 0 || Object.values(topics).some(v => v.length > 0);
 
-  if (!hasAny) {
+  // 主要ニュースとキーワードニュースを1つの配列にフラット化して結合
+  const allItems = [
+    ...general,
+    ...Object.values(topics).flat()
+  ];
+
+  if (allItems.length === 0) {
     el.innerHTML = `<p class="empty">ニュースがまだ取得されていません。</p>`;
     return;
   }
 
-  let html = "";
-  if (general.length > 0) {
-    html += `<div class="news__group">
-      <p class="news__group-title">主要ニュース</p>
-      <ul class="news__list">${general.map(newsItem).join("")}</ul>
-    </div>`;
-  }
-  const topicEntries = Object.entries(topics).filter(([, list]) => list.length > 0);
-  topicEntries.forEach(([topic, list], i) => {
-    const extraClass = i === 0 ? " news__group--extra" : " news__group--extra";
-    html += `<div class="news__group${extraClass}">
-      <p class="news__group-title">${escapeHTML(topic)}</p>
-      <ul class="news__list">${list.map(newsItem).join("")}</ul>
-    </div>`;
-  });
-  el.innerHTML = html;
+  // カテゴリ見出しなしで記事リストのみを描画
+  el.innerHTML = `<ul class="news__list">${allItems.map(newsItem).join("")}</ul>`;
 }
 
 function newsItem(item) {
