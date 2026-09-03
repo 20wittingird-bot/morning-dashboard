@@ -1,0 +1,50 @@
+name: 持ち服を一括追加
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  add-items:
+    if: contains(github.event.issue.labels.*.name, 'wardrobe-add')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: アイテムを一括追加
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/add_wardrobe_bulk.py
+
+      - name: 変更をコミット
+        run: |
+          git config user.name "morning-dashboard-bot"
+          git config user.email "actions@github.com"
+          git add data/wardrobe.json
+          git diff --cached --quiet || git commit -m "chore: 持ち服を追加 (#${{ github.event.issue.number }})"
+          git push
+
+      - name: Issueにコメントしてクローズ
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "追加しました。次回の自動更新(または手動実行)でコーデ提案にも反映されます。"
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });

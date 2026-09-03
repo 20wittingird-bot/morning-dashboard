@@ -1,0 +1,54 @@
+name: 今日のメモを登録
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  add-memo:
+    if: contains(github.event.issue.labels.*.name, 'schedule-memo')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: メモを保存
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
+        run: python scripts/add_schedule_memo.py
+
+      - name: 今日の予定を再計算
+        run: python scripts/generate_today_schedule.py
+
+      - name: 変更をコミット
+        run: |
+          git config user.name "morning-dashboard-bot"
+          git config user.email "actions@github.com"
+          git add data/memos.json data/today.json
+          git diff --cached --quiet || git commit -m "chore: 今日のメモを登録 (#${{ github.event.issue.number }})"
+          git push
+
+      - name: Issueにコメントしてクローズ
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "登録しました。サイトにも反映されています。"
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
