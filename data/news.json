@@ -26,23 +26,40 @@
     }
   ],
   "topics": {
-    "生成AI": [],
+    "生成AI": [
+      {
+        "title": "NY市 小中学校でAIを原則禁止へ - Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5qZTVCTW1DQ3VlcmJjZzZVNEtjd0I1VVc2eUNaYXpaQ015Wm5DcXVyUENSNG10N1BPd0QzR1YyNmhBbHhqc1hFUkVuLVNMN25j?oc=5"
+      },
+      {
+        "title": "NY公立小中学校などで生成AI利用を原則禁止へ 新年度の1年間 - NHKニュース",
+        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBHREMza0d6U2x4cU5zQnZZYzc1dWhEajBPRWFvSDhKeG9tNXFBczM2QzhZa0lJNWY0azFUWDZEdERuenhKN0htMmNKRUFfenNlQXBpR0ktU0RndFVXY3ln?oc=5"
+      },
+      {
+        "title": "ニューヨーク市、公立校で生成AI利用を1年間禁止 8年生まで約60万人が対象 - ITmedia",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1rR1NGUnFib29MN0l2a25TMjBSU2hoYnJvYVFsX0ZXWTFrQlQ0RkN4VTNMajhrVFRydDFQYkxFZmpKUHFwVkttbjBVdmQzMlRnTWszS0dtQ0ZmVlZCdmxnb2pfTzN3SEVtQ3c?oc=5"
+      },
+      {
+        "title": "＜産経抄＞生成AIに「使われぬ」ためには、小中に「情報」学習 - 産経ニュース",
+        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5kR1BOVUtELXNTRi1Jc2tIMVVqbVdPb3R6VWlVd0ExRWkwT1hsQnJHSVNVZlJJYjVpdGloVXZjUVlPNGRoUWhvWXRoN0ZjQ3hYblk1dFlzMUhsNkVhMk5jR2c0aU9QTmJzdWZZNm5hVEpkR1JFN3c?oc=5"
+      }
+    ],
     "経済": [
-      {
-        "title": "ベセント財務長官、片山さつき財務相に不満ぶちまけ 高市政権の経済政策に２時間以上、５月訪日時に―報道 - jiji.com",
-        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE84NnZaLWpnXzlHb3k5Y3hFMmh6a3lvVmFOYnNhUGVQMTd0MGNaa1FpQ1Q4eHJCMkRNdGd1bkwzTWFUOVBDV3VZMl9ScXR2cnA1SUNaczQ5TlpGR2pXMENkc082MA?oc=5"
-      },
-      {
-        "title": "韓国経済副首相 米財務長官など主要国財務相と会談＝G20機に - Yahoo!ニュース",
-        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5jMnVoYjRZZzlVZ08zbUNjMlJfaEpSVEZGM0dXclhGY29oYnFKLTZQRjV3Q2ZhalhkWVZLbWFfMXJNTFMwOFUydTItdkt1Yl9wVk5GcWVIRkJJWFZrd0Jta3QwdE4tVl9nT2E2WENNT1Zra2NDQnpxbFN2QmJsWUU?oc=5"
-      },
-      {
-        "title": "米長官から「注文ない」 高市政権の経済政策巡り 片山財務相（時事通信） - Yahoo!ニュース",
-        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9IWkpYTHNKQXBwTkN0NzBoU0Vhc3NxbmN2TGphVjFFMTQ1b1FPT2JVc1FGQzR0VFhVQVR3V3l1ZUFWMnVubFNNbXlma2lNWURNN093Y0RXZXpkTUh5R29xb0dza05hR3doOVlvLTRTRU5yVTYwM2FpTm5QRDNFeW8?oc=5"
-      },
       {
         "title": "COMMENTARY: コラム：世界の嵐の中で静けさ保つ中国国債、財政・経済安定の証しならず - ロイター",
         "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5kT01aVkNQUlNvUHZ6bUNRd3ZJOWozRG1DS25FZ2xKaGRhMEtfbk5obE9LTlhPQmFnYTJoQTFjR2tOZTR3Z3E1OUhINDV5bmFhSDlKMFZxc000UkFrNDBnUXUwNmZNc0ltN19SMFpnS195ellMeGN3WQ?oc=5"
+      },
+      {
+        "title": "ロ財政赤字「深刻な問題に当たらず」 プーチン氏、経済運営に自信（ロイター） - Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9zTS1iUmg1NDNGREk0RHg4eGVUdEdyWm12VnRiR1p3cFNFUXY5UlVEZWJTUUhFSHZoaDRhSHg5MDN5WU1hQUFJQnlxaFhrTXpScFhJOHBVSTUzWEMzVmNVY095UHJOdi0xYlZBWkpaNXJEVWFaNjBGb2J1VFEtZUE?oc=5"
+      },
+      {
+        "title": "米の対イラン圧力に奏功の兆し、制裁と封鎖が経済打撃＝イラン高官筋（ロイター） - Yahoo!ニュース",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1XVXFCQnhSc215NGJ3N0xpMlI5eGR1YmM4OENPTEszZWlHQ3d1VmJjbm5FbGxTTXlMQ3FRQ0MyOVA3VGlPUmxzSk5RNjZqX0p1cFVPaGVxbXhxbmwyWUszZmlJTThlQlozWW9uYm9ndFpoVUlDb3ZuZWRveklkWjA?oc=5"
+      },
+      {
+        "title": "ベセント財務長官、片山さつき財務相に不満ぶちまけ 高市政権の経済政策に２時間以上、５月訪日時に―報道 - 時事ドットコム",
+        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE84NnZaLWpnXzlHb3k5Y3hFMmh6a3lvVmFOYnNhUGVQMTd0MGNaa1FpQ1Q4eHJCMkRNdGd1bkwzTWFUOVBDV3VZMl9ScXR2cnA1SUNaczQ5TlpGR2pXMENkc082MA?oc=5"
       }
     ]
   }
