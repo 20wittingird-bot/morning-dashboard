@@ -10,8 +10,8 @@ import urllib.error
 import urllib.request
 
 API_KEY = os.environ.get("GEMINI_API_KEY")
-# 高コスパ・高速で無料枠の利用に適した gemini-1.5-flash を使用
-MODEL = "gemini-1.5-flash"
+# モデル名を gemini-2.5-flash または gemini-1.5-flash に指定
+MODEL = "gemini-2.5-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 
