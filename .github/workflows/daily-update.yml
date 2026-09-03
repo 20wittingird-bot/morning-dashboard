@@ -29,7 +29,7 @@ jobs:
 
       - name: コーデ提案を生成
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}  # ← これを追加
         run: python scripts/generate_outfit.py
 
       - name: 更新内容をコミット
