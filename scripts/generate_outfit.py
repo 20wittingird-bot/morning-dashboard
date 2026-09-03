@@ -11,7 +11,7 @@ import urllib.request
 
 API_KEY = os.environ.get("GEMINI_API_KEY")
 # モデル名を gemini-2.5-flash または gemini-1.5-flash に指定
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3.6-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 
