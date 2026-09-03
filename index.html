@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11131a">
+<title>朝のダッシュボード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="page">
+
+  <header class="masthead">
+    <p class="masthead__date" id="dateLine">-</p>
+    <h1 class="masthead__greeting" id="greeting">おはようございます</h1>
+    <div class="masthead__weather">
+      <span class="weather-icon" id="weatherIcon" aria-hidden="true"></span>
+      <span class="masthead__temp" id="weatherTemp">--°</span>
+      <span class="masthead__weather-text" id="weatherText">読み込み中</span>
+    </div>
+  </header>
+
+  <div class="skyline"></div>
+
+  <section class="section">
+    <h2 class="section__label">今日の服装</h2>
+    <div id="outfitBody" class="outfit">
+      <p class="empty">読み込み中…</p>
+    </div>
+  </section>
+
+  <div class="row-cards">
+    <section class="section">
+      <div class="section__head">
+        <h2 class="section__label">今日の予定</h2>
+        <button class="add-btn" data-toggle="panel-schedule" aria-label="予定を追加">+</button>
+      </div>
+      <div id="todayBody">
+        <p class="empty">読み込み中…</p>
+      </div>
+
+      <div class="panel" id="panel-schedule">
+        <div class="panel__field">
+          <label for="memoInput">今日のメモ</label>
+          <textarea id="memoInput" placeholder="例: 深夜アニメ新作の確認"></textarea>
+          <small>その日限りの予定として登録されます</small>
+        </div>
+        <button class="panel__submit" id="memoSubmit">メモを送信</button>
+
+        <div class="panel__field" style="margin-top: 22px;">
+          <label for="animeInput">アニメ一括登録</label>
+          <textarea id="animeInput" placeholder="アニメA 月曜 23:00&#10;アニメB 火曜 26:00"></textarea>
+          <small>「曜日 時刻」で毎週自動表示されます(26:00=翌日午前2:00にも対応)</small>
+        </div>
+        <button class="panel__submit" id="animeSubmit">アニメを一括登録</button>
+        <p class="panel__note" id="scheduleNote" style="display:none;"></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section__label">ニュース</h2>
+      <div id="newsBody">
+        <p class="empty">読み込み中…</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="section">
+    <h2 class="section__label">相性チェック</h2>
+    <p class="section__hint">持ち服から1つ選ぶと、相性の良いアイテムを表示します。</p>
+    <select id="compatSelect" class="select">
+      <option value="">アイテムを選択してください</option>
+    </select>
+    <div id="compatResult" class="compat-result"></div>
+  </section>
+
+  <section class="section" id="wardrobeCard">
+    <div class="section__head">
+      <h2 class="section__label" data-toggle-collapse="wardrobeBody">
+        持ち服リスト <span class="section__count" id="wardrobeCount"></span> <span class="chevron">⌄</span>
+      </h2>
+      <button class="add-btn" data-toggle="panel-wardrobe" aria-label="持ち服を追加">+</button>
+    </div>
+    <div class="wardrobe is-collapsed" id="wardrobeBody">
+      <p class="empty">読み込み中…</p>
+    </div>
+
+    <div class="panel" id="panel-wardrobe">
+      <div class="panel__field">
+        <label for="wardrobeInput">一括登録</label>
+        <textarea id="wardrobeInput" placeholder="アウター&#10;ダウンジャケット&#10;デニムジャケット&#10;&#10;トップス&#10;白シャツ" style="min-height: 120px;"></textarea>
+        <small>カテゴリ見出しの下に、アイテム名を改行で並べてください</small>
+      </div>
+      <button class="panel__submit" id="wardrobeSubmit">送信</button>
+      <p class="panel__note" id="wardrobeNote" style="display:none;"></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>毎朝6:00頃に自動更新されます。持ち服やアニメの登録はGitHubのIssueとして送信され、反映まで数十秒〜数分かかります。</p>
+  </footer>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

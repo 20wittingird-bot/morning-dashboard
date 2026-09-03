@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "title": "アニメA", "weekday": 0, "time_label": "23:00" },
+    { "title": "アニメB", "weekday": 1, "time_label": "26:00" }
+  ]
+}
