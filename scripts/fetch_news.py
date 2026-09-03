@@ -10,7 +10,6 @@ GENERAL_RSS = "https://www3.nhk.or.jp/rss/news/cat0.xml"
 
 
 def get_element_text(element) -> str:
-    """要素からテキストを安全に取得"""
     if element is None:
         return ""
     text = "".join(element.itertext())
@@ -18,12 +17,15 @@ def get_element_text(element) -> str:
 
 
 def parse_rss(url: str, limit: int = 5):
+    # Googleニュースのブロック回避用のヘッダーセット
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/120.0.0.0 Safari/537.36"
-        )
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
     }
     req = urllib.request.Request(url, headers=headers)
     
@@ -47,21 +49,25 @@ def parse_rss(url: str, limit: int = 5):
 
 
 def main():
-    # 1. config.json からニュースのキーワードを参照する
+    # 1. config.json の読み込み確認
     with open("config.json", encoding="utf-8") as f:
         config = json.load(f)
+    
     keywords = config.get("news_keywords", [])
+    print(f"[DEBUG] 読み込んだキーワード: {keywords}")
 
     result = {"general": [], "topics": {}}
 
     # 一般ニュース（NHK）
     try:
         result["general"] = parse_rss(GENERAL_RSS, limit=6)
+        print(f"[DEBUG] NHKニュース取得件数: {len(result['general'])}")
     except Exception as e:  # noqa: BLE001
-        print("general news fetch failed:", e)
+        print("[ERROR] general news fetch failed:", e)
 
-    # config.json で指定された各キーワードのニュースを取得
+    # キーワード別ニュース（Googleニュース）
     for kw in keywords:
+        # パラメータ構築の最適化
         params = urllib.parse.urlencode({
             "q": kw,
             "hl": "ja",
@@ -71,16 +77,18 @@ def main():
         url = f"https://news.google.com/rss/search?{params}"
         
         try:
-            result["topics"][kw] = parse_rss(url, limit=4)
+            fetched_items = parse_rss(url, limit=4)
+            result["topics"][kw] = fetched_items
+            print(f"[DEBUG] キーワード [{kw}] 取得件数: {len(fetched_items)}")
         except Exception as e:  # noqa: BLE001
-            print(f"topic news fetch failed ({kw}):", e)
+            print(f"[ERROR] topic news fetch failed ({kw}):", e)
             result["topics"][kw] = []
 
-    # 2. 取得した結果を data/news.json に書き出す
+    # 2. 結果の保存
     with open("data/news.json", "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
 
-    print("news.json updated")
+    print("news.json updated successfully")
 
 
 if __name__ == "__main__":
