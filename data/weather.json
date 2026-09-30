@@ -1,8 +1,8 @@
 {
   "city": "東京都",
-  "date": "2026-09-29",
-  "temp_max": 21.4,
-  "temp_min": 18.5,
+  "date": "2026-09-30",
+  "temp_max": 21.3,
+  "temp_min": 17.7,
   "weather_code": 63,
   "weather_text": "雨",
   "precipitation_probability": 100
